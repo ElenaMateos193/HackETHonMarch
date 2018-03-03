@@ -1,7 +1,6 @@
-pragma solidity ^0.4.0;
-import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
+pragma solidity ^0.4.17;
 
-contract Apuestas is usingOraclize {
+contract Apuestas {
 
    struct Apuesta {
        uint256 id;
@@ -31,16 +30,16 @@ contract Apuestas is usingOraclize {
    
    address authorized;
    
-   function Apuestas() public {
+   function Apuestas() public payable {
        authorized = msg.sender;
        partidos[1] = Partido(1, "Madrid", "Barcelona");
        partidos[2] = Partido(2, "Atletico de Madrid", "Athletic de Bilbao");
    }
 
-   //event Result(uint8 userNumber, uint8 choosenNumber, bool won);
-   
-   function crearApuesta(uint256 beneficio, uint256 perdidas, uint8 golesLocal, uint8 golesVisitante, uint256 idPartido) public {
-       require(msg.value >= perdidas);
+   event IdApuesta(uint256 idApuesta);   
+    
+   function crearApuesta(uint256 beneficio, uint256 perdidas, uint8 golesLocal, uint8 golesVisitante, uint256 idPartido) public payable {
+       require(msg.value == perdidas);
        require(existsMatch(idPartido));
        
        apuestas[idPartido][currentApuestaId] = Apuesta(
@@ -53,16 +52,18 @@ contract Apuestas is usingOraclize {
                golesVisitante,
                false
            );
+           IdApuesta(currentApuestaId);
            currentApuestaId++;
+           
    }
    
-   function aceptarApuesta(uint256 idPartido, uint256 idApuesta) public {
+   function aceptarApuesta(uint256 idPartido, uint256 idApuesta) public payable {
        
        require(existsMatch(idPartido));
        require(apuestas[idPartido][idApuesta].id != 0);
        require(apuestas[idPartido][idApuesta].consumidor == address(0));
        
-       require(msg.value >= apuestas[idPartido][idApuesta].ganar);
+       require(msg.value == apuestas[idPartido][idApuesta].ganar);
        
        apuestas[idPartido][idApuesta].consumidor = msg.sender;
    }
@@ -76,9 +77,9 @@ contract Apuestas is usingOraclize {
            if(!ap.procesado){
                ap.procesado = true;
                if(ap.golesLocal == golesLocal && ap.golesVisitante == golesVisitante ){
-                   ap.creador.transfer(ap.ganar);
+                   ap.creador.transfer(ap.ganar + ap.perder);
                } else {
-                   ap.consumidor.transfer(ap.perder);
+                   ap.consumidor.transfer(ap.perder + ap.perder);
                }
            }
        }
@@ -95,9 +96,9 @@ contract Apuestas is usingOraclize {
                ap.creador.transfer(ap.perder);
            }
        }
-   }
+          }
    
-   function existsMatch(uint256 idPartido) returns (bool){
-       return partidos[idPartido].idPartido == idPartido;
+   function existsMatch(uint256 idPartido) private returns (bool){
+       return partidos[idPartido].idPartido == idPartido && idPartido > 0;
    }
 }

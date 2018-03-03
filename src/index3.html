@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Pete's Pet Shop</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+          <h1 class="text-center">Partidos</h1>
+          <hr/>
+          <br/>
+        </div>
+      </div>
+
+      <div id="petsRow" class="row">
+        <!-- PETS LOAD HERE -->
+      </div>
+    </div>
+
+    
+    <section id="cover">
+        <div id="cover-caption">
+            <div class="container">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <h1 class="display-3">Bienvenido a Betcoin</h1>
+					<h2 class="text-center">Un lugar donde apostar con amigos</h2>
+					<div class="row text-center container table" style="padding-top: 40px; background: white; opacity: 0.8; border-radius: 25px; color: black">
+
+                        <div class="col-lg-12 float-left" style="padding-bottom: 20px">
+                            <div class="row">
+                                <div class="col-lg-5">LOCAL</div>
+                                <div class="col-lg-5">VISITANTE</div>
+                                <div class="col-lg-2">
+                                </div>
+                            </div>
+                        </div> 
+
+                        <div class="col-lg-12 float-left">
+                            <div class="row">
+                                <div class="col-lg-5">Madrid</div>
+                                <div class="col-lg-5">Barcelona</div>
+                                <div class="col-lg-2">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bets">Ver</button>
+                                </div>
+                            </div>
+                        </div>  
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-5">Madrid</div>
+                                <div class="col-lg-5">Barcelona</div>
+                                <div class="col-lg-2">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bets">Ver</button>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                    <br>
+                    
+                    <a href="#nav-main" class="btn btn-secondary-outline btn-sm" role="button">&darr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="footer-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <p>uncopyright 2015. do what you want.</p>
+                    <p>coded by <a href="http://bradhussey.ca/">brad</a></p>
+                </div>
+                <div class="col-sm-3">
+                    <ul class="list-unstyled">
+                        <li><a href="">home</a></li>
+                        <li><a href="">what we do</a></li>
+                        <li><a href="">about</a></li>
+                        <li><a href="">latest</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <ul class="list-unstyled">
+                        <li><a href="">facebook</a></li>
+                        <li><a href="">twitter</a></li>
+                        <li><a href="">youtube</a></li>
+                        <li><a href="">linkedin</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h6>a tiny header</h6>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam expedita fugit saepe, eum ad, quam! Eum magnam suscipit nulla ullam aliquam consectetur provident, nihil consequuntur porro labore asperiores corrupti esse?</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+	<div class="modal fade" id="bets" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <div class="col-sm-6 col-md-4 col-lg-6">
+        <div class="panel panel-default panel-pet">
+          <div class="panel-heading">
+            <h3 class="panel-title"></h3>
+          </div>	
+          <div class="panel-body">
+            <!-- <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;" src="https://animalso.com/wp-content/uploads/2017/01/Golden-Retriever_6.jpg" data-holder-rendered="true"> -->
+			<input placeholder="Goles local" />
+			<input placeholder="Goles visitante" />
+			<input placeholder="Recompensa por acertar" />
+			<input placeholder="Recompensa por fallar" />
+            <button class="btn btn-default btn-adopt" type="button" data-id="0" onclick="sendBet(">Apostar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

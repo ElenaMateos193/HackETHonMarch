@@ -1,25 +1,8 @@
 App = {
   web3Provider: null,
   contracts: {},
-
   init: function() {
     // Load pets.
-    $.getJSON('../pets.json', function(data) {
-      var petsRow = $('#petsRow');
-      var petTemplate = $('#petTemplate');
-
-      for (i = 0; i < data.length; i ++) {
-        petTemplate.find('.panel-title').text(data[i].name);
-        petTemplate.find('img').attr('src', data[i].picture);
-        petTemplate.find('.pet-breed').text(data[i].breed);
-        petTemplate.find('.pet-age').text(data[i].age);
-        petTemplate.find('.pet-location').text(data[i].location);
-        petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
-
-        petsRow.append(petTemplate.html());
-      }
-    });
-
     return App.initWeb3();
   },
 
@@ -36,13 +19,13 @@ App = {
   },
 
   initContract: function() {
-      $.getJSON('Adoption.json', function(data) {
+      $.getJSON('Apuestas.json', function(data) {
           // Get the necessary contract artifact file and instantiate it with truffle-contract
           var AdoptionArtifact = data;
-          App.contracts.Adoption = TruffleContract(AdoptionArtifact);
+          App.contracts.Apuestas = TruffleContract(AdoptionArtifact);
 
           // Set the provider for our contract
-          App.contracts.Adoption.setProvider(App.web3Provider);
+          App.contracts.Apuestas.setProvider(App.web3Provider);
 
           // Use our contract to retrieve and mark the adopted pets
           return App.markAdopted();
@@ -56,21 +39,24 @@ App = {
   },
 
   markAdopted: function(adopters, account) {
-      var adoptionInstance;
+      var apuestasInstance;
 
-      App.contracts.Adoption.deployed().then(function(instance) {
-          adoptionInstance = instance;
+      App.contracts.Apuestas.deployed().then(function(instance) {
+		apuestasInstance = instance;
+	    var petTemplate = $('#petTemplate');
+	    var petsRow = $('#petsRow');
 
-          return adoptionInstance.getAdopters.call();
-      }).then(function(adopters) {
-          for (i = 0; i < adopters.length; i++) {
-              if (adopters[i] !== '0x0000000000000000000000000000000000000000') {
-                  $('.panel-pet').eq(i).find('button').text('Success').attr('disabled', true);
-              }
-          }
-      }).catch(function(err) {
-          console.log(err.message);
-      });
+		for (i = 0; i < 10; i++) {
+			apuestasInstance.partidos.call(i).then(function(partidos) {
+			  if (partidos[1]) {
+				   petTemplate.find('.panel-title').text(partidos[1] + '-' + partidos[2]);
+		           
+				   petsRow.append(petTemplate.html());
+			  }
+			}).catch(function(err) {
+					console.log(err.message);
+				});
+	  }});	
   },
 
   handleAdopt: function(event) {
